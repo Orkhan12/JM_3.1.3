@@ -1,18 +1,24 @@
-package org.iskandarov.SpringApp.security;
+package org.iskandarov.SpringApp.service;
 
 import org.iskandarov.SpringApp.entities.User;
+import org.iskandarov.SpringApp.repositories.RoleRepository;
 import org.iskandarov.SpringApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import javax.transaction.Transactional;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
+
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     @Transactional
@@ -24,4 +30,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return user;
     }
+
+
 }

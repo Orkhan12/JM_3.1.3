@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoleRepository extends JpaRepository<Role, Integer> {
+
     @Override
-    <S extends Role> List<S> findAll(Example<S> example);
+    List<Role> findAll();
+
 
     Role findByRole(String role);
-
-    Role findById(Long id);
 
     @Override
     Role getOne(Integer integer);

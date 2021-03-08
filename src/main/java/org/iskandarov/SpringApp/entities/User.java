@@ -21,6 +21,9 @@ public class User implements UserDetails {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "age")
+    private Integer age;
+
     @Column(name = "email")
     private String email;
 
@@ -42,6 +45,14 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public Long getId() {
