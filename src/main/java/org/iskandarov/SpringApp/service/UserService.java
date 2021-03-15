@@ -1,5 +1,6 @@
 package org.iskandarov.SpringApp.service;
 
+import org.iskandarov.SpringApp.dto.exceptions.UserNotFoundByIdException;
 import org.iskandarov.SpringApp.entities.User;
 
 import java.util.List;
@@ -11,11 +12,11 @@ public interface UserService {
 
     User findByName(String name);
 
-    User findById(Long id);
+    User findById(Long id) throws UserNotFoundByIdException;
 
-    User getOne(Integer integer);
 
-    void deleteById(Long id);
+
+    void deleteById(Long id) throws UserNotFoundByIdException;
 
     List<User> findAll();
 }

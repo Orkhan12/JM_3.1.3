@@ -1,21 +1,26 @@
 package org.iskandarov.SpringApp.service;
 
+import org.iskandarov.SpringApp.dto.exceptions.UserNotFoundByIdException;
 import org.iskandarov.SpringApp.entities.User;
 import org.iskandarov.SpringApp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
+
 @Service
-@Transactional
 public class UserServiceImpl implements UserService {
 
 
     @Autowired
     UserRepository userRepository;
 
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
     public User save(User u) {
 
         return this.userRepository.save(u);
@@ -32,21 +37,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
-        return this.userRepository.findById(id);
+    public User findById(Long id) throws UserNotFoundByIdException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundByIdException(id));
     }
 
     @Override
-    public User getOne(Integer integer) {
-        return this.userRepository.getOne(integer);
+    @Transactional
+    public void deleteById(Long id) throws UserNotFoundByIdException {
+        if (userRepository.existsById(id)) {
+            userRepository.deleteById(id);
+        } else {
+            throw new UserNotFoundByIdException(id);
+        }
     }
 
     @Override
-    public void deleteById(Long id) {
-        this.userRepository.deleteById(id);
-    }
-
-    @Override
+    @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.NESTED)
     public List<User> findAll() {
         return this.userRepository.findAll();
     }

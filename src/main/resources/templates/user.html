@@ -5,7 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
+    <script th:src="@{/js/main.js}" type="text/javascript"></script>
     <title>User page</title>
 </head>
 <body>
@@ -79,18 +79,8 @@
                                     </tr>
                                     </thead>
 
-                                    <tbody>
-                                    <tr th:each="user, state : ${userdata}">
-                                        <th scope="row" th:text="${user.id}">ID</th>
-                                        <td th:text="${user.name}"> Name</td>
-                                        <td th:text="${user.lastName}"> LastName</td>
-                                        <td th:text="${user.age}">Age</td>
-                                        <td th:text="${user.email}"> Email</td>
-                                        <td>  <span th:each="userRole:${user.roles}"
-                                                    th:if="${userRole.getAuthority().startsWith('ROLE_')}"
-                                                    th:text="${userRole.getAuthority().replaceFirst('ROLE_', ' ')}"></span>
-                                        </td>
-                                    </tr>
+                                    <tbody id="user_auto_table_body">
+
                                     </tbody>
                                 </table>
                             </div>
