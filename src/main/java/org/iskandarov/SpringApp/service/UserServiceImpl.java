@@ -22,7 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRES_NEW)
     public User save(User u) {
-
+        if (!u.getPassword().contains("$2")) {
+            u.setPassword(new BCryptPasswordEncoder().encode(u.getPassword()));
+        }
         return this.userRepository.save(u);
     }
 

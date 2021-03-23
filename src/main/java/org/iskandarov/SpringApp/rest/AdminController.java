@@ -28,7 +28,7 @@ public class AdminController {
 
     @GetMapping("{id}")
     public User getById(@PathVariable Long id) throws UserNotFoundByIdException {
-        return this.userService.findById(id);
+        return userService.findById(id);
     }
 
     @GetMapping("/users")
@@ -39,24 +39,22 @@ public class AdminController {
 
     @PostMapping("/add")
     public User newUser(@RequestBody User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        return this.userService.save(user);
+        return userService.save(user);
     }
 
     @PutMapping("/update")
     public User updateUser(@RequestBody User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        return this.userService.save(user);
+        return userService.save(user);
     }
 
     @DeleteMapping("/delete/{id}")
     public void deleteUsers(@PathVariable Long id) throws UserNotFoundByIdException{
-        this.userService.deleteById(id);
+        userService.deleteById(id);
     }
 
     @GetMapping("/user")
     public User userData(Principal principal) {
-        return this.userService.findByName(principal.getName());
+        return userService.findByName(principal.getName());
     }
 
 }

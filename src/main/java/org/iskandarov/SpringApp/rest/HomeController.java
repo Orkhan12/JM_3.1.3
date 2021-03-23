@@ -3,10 +3,7 @@ package org.iskandarov.SpringApp.rest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-
 @Controller
-@Transactional
 public class HomeController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)

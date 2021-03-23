@@ -64,6 +64,11 @@ $(document).ready(function () {
         .then(() => $("#user_auto_table_body").append(createAuTableRow(obj)))).catch(error => {
         console.log(error);
     });
+
+    // $(".eBtnPass").on('click', function (event){
+    //     $('.myForm #exampleModal').modal('hide');
+    //     $('#exampleModal1').modal();
+    // });
 });
 
 function openTabById(tab) {
@@ -102,6 +107,7 @@ function loadUsersInformation() {
                         $('.myForm #lastName').val(user.lastName)
                         $('.myForm #age').val(user.age)
                         $('.myForm #email').val(user.email)
+                        $('.myForm #password').val(user.password)
 
                     });
                     $('.myForm #exampleModal').modal();
